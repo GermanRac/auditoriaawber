@@ -1,0 +1,135 @@
+{% extends 'base/base.html' %}
+
+
+{% block page_content %}
+
+
+<div class="card shadow mb-4">
+
+    <!-- Card Header - Dropdown -->
+
+    <div
+
+        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+        <h6 class="m-0 font-weight-bold text-primary">Valoraciones</h6>
+
+        <div class="dropdown no-arrow">
+
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+
+                aria-labelledby="dropdownMenuLink">
+
+                <div class="dropdown-header">Acciones</div>
+
+                {% comment %} <a class="dropdown-item" href="{% url 'ind:valoraciones_new' %}"><i class="far fa-calendar-plus"></i>Nueva</a> {% endcomment %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Card Body -->
+
+    <div class="card-body">
+
+        {% if not obj %}
+
+        <div class="alert alert-info">No hay Datos para mostrar</div>
+
+        {% else %}
+
+        <table class="table table-striped table-hover">
+
+            <thead>
+
+                <th>Categoria</th>
+
+                <th>Descripcion</th>
+
+                <th>Ponderacion</th>
+
+                <th>Ajuste</th>
+
+                
+
+            </thead>    
+
+            <tbody>
+
+                {% for item in obj %}
+
+                <tr>
+
+                    <td>{{ item.categoria }}</td>
+
+                    <td>{{ item.descripcion }}</td>
+
+                    <td>{{ item.ponderacion }}</td>
+
+                    <td>{{ item.categoria.ajustes_set.first.ajuste }}</td>
+
+                </tr>
+                {% endfor %}    
+
+                   
+            
+            </tbody> 
+            <thead>
+            <th>Valoracion Final</th>
+
+            </thead>
+            <tbody>
+
+                {% for item in resultados %}
+                <tr>
+
+                    <td>{{ item }}</td>
+
+                </tr>
+  
+                
+                {% endfor %}
+
+            </tbody>
+          
+
+        </table>
+
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js_page %}
+<script>
+    //llama el plugin de datatables del jquery
+    $(document).ready(function() {
+        $('.table').DataTable();
+    });
+</script>
+
+{% endblock %}
+
+
+
+{% comment %} 
+{% for item,item1,item2,item3 in tab %}
+
+<tr>
+    <td>{{ item.categoria }}</td>
+    <td>{{ item.descripcion }}</td>
+    <td>{{ item.ponderacion }}</td>
+    <td>{{ item2.ajuste }}</td>
+    <td>{{ item3 }}</td>
+    {endfor} {% endcomment %}
